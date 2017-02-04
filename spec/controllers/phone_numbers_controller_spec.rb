@@ -24,11 +24,11 @@ RSpec.describe PhoneNumbersController, type: :controller do
   # PhoneNumber. As you add validations to PhoneNumber, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { number: 'MyString', person_id: 1 }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { number: nil, person_id: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -39,7 +39,7 @@ RSpec.describe PhoneNumbersController, type: :controller do
   describe "GET #index" do
     it "assigns all phone_numbers as @phone_numbers" do
       phone_number = PhoneNumber.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, {}, session: valid_session
       expect(assigns(:phone_numbers)).to eq([phone_number])
     end
   end
@@ -47,14 +47,14 @@ RSpec.describe PhoneNumbersController, type: :controller do
   describe "GET #show" do
     it "assigns the requested phone_number as @phone_number" do
       phone_number = PhoneNumber.create! valid_attributes
-      get :show, params: {id: phone_number.to_param}, session: valid_session
+      get :show, {id: phone_number.to_param}, session: valid_session
       expect(assigns(:phone_number)).to eq(phone_number)
     end
   end
 
   describe "GET #new" do
     it "assigns a new phone_number as @phone_number" do
-      get :new, params: {}, session: valid_session
+      get :new, {}, session: valid_session
       expect(assigns(:phone_number)).to be_a_new(PhoneNumber)
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe PhoneNumbersController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested phone_number as @phone_number" do
       phone_number = PhoneNumber.create! valid_attributes
-      get :edit, params: {id: phone_number.to_param}, session: valid_session
+      get :edit, {id: phone_number.to_param}, session: valid_session
       expect(assigns(:phone_number)).to eq(phone_number)
     end
   end
@@ -71,30 +71,30 @@ RSpec.describe PhoneNumbersController, type: :controller do
     context "with valid params" do
       it "creates a new PhoneNumber" do
         expect {
-          post :create, params: {phone_number: valid_attributes}, session: valid_session
+          post :create, {phone_number: valid_attributes}, session: valid_session
         }.to change(PhoneNumber, :count).by(1)
       end
 
       it "assigns a newly created phone_number as @phone_number" do
-        post :create, params: {phone_number: valid_attributes}, session: valid_session
+        post :create, {phone_number: valid_attributes}, session: valid_session
         expect(assigns(:phone_number)).to be_a(PhoneNumber)
         expect(assigns(:phone_number)).to be_persisted
       end
 
       it "redirects to the created phone_number" do
-        post :create, params: {phone_number: valid_attributes}, session: valid_session
+        post :create, {phone_number: valid_attributes}, session: valid_session
         expect(response).to redirect_to(PhoneNumber.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved phone_number as @phone_number" do
-        post :create, params: {phone_number: invalid_attributes}, session: valid_session
+        post :create, {phone_number: invalid_attributes}, session: valid_session
         expect(assigns(:phone_number)).to be_a_new(PhoneNumber)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {phone_number: invalid_attributes}, session: valid_session
+        post :create, {phone_number: invalid_attributes}, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,25 +103,26 @@ RSpec.describe PhoneNumbersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { number: 'MyNewString', person_id: 2 }
       }
 
       it "updates the requested phone_number" do
         phone_number = PhoneNumber.create! valid_attributes
-        put :update, params: {id: phone_number.to_param, phone_number: new_attributes}, session: valid_session
+        put :update, {id: phone_number.to_param, phone_number: new_attributes}, session: valid_session
         phone_number.reload
-        skip("Add assertions for updated state")
+        expect(phone_number.number).to eq('MyNewString')
+        expect(phone_number.person_id).to eq(2)
       end
 
       it "assigns the requested phone_number as @phone_number" do
         phone_number = PhoneNumber.create! valid_attributes
-        put :update, params: {id: phone_number.to_param, phone_number: valid_attributes}, session: valid_session
+        put :update, {id: phone_number.to_param, phone_number: valid_attributes}, session: valid_session
         expect(assigns(:phone_number)).to eq(phone_number)
       end
 
       it "redirects to the phone_number" do
         phone_number = PhoneNumber.create! valid_attributes
-        put :update, params: {id: phone_number.to_param, phone_number: valid_attributes}, session: valid_session
+        put :update, {id: phone_number.to_param, phone_number: valid_attributes}, session: valid_session
         expect(response).to redirect_to(phone_number)
       end
     end
@@ -129,13 +130,13 @@ RSpec.describe PhoneNumbersController, type: :controller do
     context "with invalid params" do
       it "assigns the phone_number as @phone_number" do
         phone_number = PhoneNumber.create! valid_attributes
-        put :update, params: {id: phone_number.to_param, phone_number: invalid_attributes}, session: valid_session
+        put :update, {id: phone_number.to_param, phone_number: invalid_attributes}, session: valid_session
         expect(assigns(:phone_number)).to eq(phone_number)
       end
 
       it "re-renders the 'edit' template" do
         phone_number = PhoneNumber.create! valid_attributes
-        put :update, params: {id: phone_number.to_param, phone_number: invalid_attributes}, session: valid_session
+        put :update, {id: phone_number.to_param, phone_number: invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -145,13 +146,13 @@ RSpec.describe PhoneNumbersController, type: :controller do
     it "destroys the requested phone_number" do
       phone_number = PhoneNumber.create! valid_attributes
       expect {
-        delete :destroy, params: {id: phone_number.to_param}, session: valid_session
+        delete :destroy, {id: phone_number.to_param}, session: valid_session
       }.to change(PhoneNumber, :count).by(-1)
     end
 
     it "redirects to the phone_numbers list" do
       phone_number = PhoneNumber.create! valid_attributes
-      delete :destroy, params: {id: phone_number.to_param}, session: valid_session
+      delete :destroy, {id: phone_number.to_param}, session: valid_session
       expect(response).to redirect_to(phone_numbers_url)
     end
   end
