@@ -52,18 +52,19 @@ describe 'the person view', type: :feature do
     end
   end
   
-  # it 'deletes a phone number' do
-  #   number = '5551112223'
+  it 'deletes a phone number' do
+    number = '5551112223'
     
-  #   page.click_link('Add phone number')
-  #   page.fill_in('Number', with: number)
-  #   page.click_button('Create Phone number')
+    page.click_link('Add phone number')
+    page.fill_in('Number', with: number)
+    page.click_button('Create Phone number')
     
-  #   expect(current_path).to eq(person_path(person))
-  #   expect(page).to have_content(number)
+    expect(current_path).to eq(person_path(person))
+    expect(page).to have_content(number)
     
-  #   last(:link, 'delete').click
+    delete_links = page.all('a', :text => 'delete')
+    delete_links.last.click
     
-  #   expect(page).not_to have_content(number)
-  # end
+    expect(page).not_to have_content(number)
+  end
 end
