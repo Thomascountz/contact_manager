@@ -33,4 +33,16 @@ describe 'the person view', type: :feature do
       expect(page).to have_link('edit', href: edit_phone_number_path(phone))
     end
   end
+  
+  it 'edits a phone number' do
+    phone = person.phone_numbers.first
+    old_number = phone.number
+    
+    first(:link, 'edit').click
+    page.fill_in('Number', with: '1111111111')
+    page.click_button('Update Phone number')
+    expect(current_path).to eq(person_path(person))
+    expect(page).to have_content('1111111111')
+    expect(page).not_to have_content(old_number)
+  end
 end
