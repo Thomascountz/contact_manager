@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Person, type: :model do
     
   let(:person) do
-    Person.new(first_name: 'Jane', last_name: 'Smith')
+    Person.create(first_name: 'Jane', last_name: 'Smith')
   end
   
   it 'is valid' do
@@ -20,11 +20,22 @@ RSpec.describe Person, type: :model do
     expect(person).not_to be_valid
   end
   
-  it 'has an array of phone numbers' do
-    expect(person.phone_numbers).to eq([])
+  # it 'has an array of phone numbers' do
+  #   expect(person.phone_numbers).to eq([])
+  # end
+  
+  it 'responds with its created phone numbers' do
+    person.phone_numbers.create(number: '7654321123')
+    expect(person.phone_numbers.map(&:number)).to eq(['7654321123'])
   end
   
-  it 'has an array of email addresses' do
-    expect(person.email_addresses).to eq([])
+  # it 'has an array of email addresses' do
+  #   expect(person.email_addresses).to eq([])
+  # end
+  
+  it 'responds with its created email addresses' do
+    person.phone_numbers.create(number: 'Matt@gmail.com')
+    expect(person.phone_numbers.map(&:number)).to eq(['Matt@gmail.com'])
   end
+  
 end
