@@ -106,7 +106,18 @@ describe 'the person view', type: :feature do
       end
     end
       
-    it 'updates an email address'
+    xit 'updates an email address' do
+      new_email = "britney@gmail.com"
+      
+      first(:link, 'edit').click
+      page.fill_in("Address", with: new_email)
+      page.click_button("Update Email address")
+      
+      expect(current_path).to eq(person_path(person))
+      expect(page).to have_content(new_email)
+      
+    end
+    
     it 'has a link to delete email address'
     it 'deletes an email address'
     
