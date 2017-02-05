@@ -106,7 +106,7 @@ describe 'the person view', type: :feature do
       end
     end
       
-    xit 'updates an email address' do
+    it 'updates an email address' do
       new_email = "britney@gmail.com"
       
       first(:link, 'edit').click
@@ -124,7 +124,21 @@ describe 'the person view', type: :feature do
       end
     end
     
-    it 'deletes an email address'
+    it 'deletes an email address' do
+      email = 'NewEmailAddress'
+      
+      page.click_link('Add email address')
+      page.fill_in('Address', with: email)
+      page.click_button('Create Email address')
+      
+      expect(current_path).to eq(person_path(person))
+      expect(page).to have_content(email)
+      
+      delete_links = page.all('a', :text => 'delete')
+      delete_links.last.click
+      
+      expect(page).not_to have_content(email)
+    end
     
   end
 end
