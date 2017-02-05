@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'the person view', type: :feature do
+  
   describe 'phone numbers' do
     let(:person) { Person.create(first_name: 'John', last_name: 'Doe') }
     
@@ -67,5 +68,22 @@ describe 'the person view', type: :feature do
       
       expect(page).not_to have_content(number)
     end
+  end
+  
+  describe 'email addresses' do
+    
+    let(:person) { Person.create(first_name: 'John', last_name: 'Doe') }
+    
+    before(:each) do
+      person.email_addresses.create(address: 'johndoe@gmail.com')
+      person.email_addresses.create(address: 'john.doe@gmail.com')
+      visit person_path(person)
+    end
+    
+    it 'has a list of email addresses' do
+      expect(page).to have_selector('li', text: 'johndoe@gmail.com')
+    end
+    
+    
   end
 end
