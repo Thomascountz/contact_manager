@@ -118,7 +118,12 @@ describe 'the person view', type: :feature do
       
     end
     
-    it 'has a link to delete email address'
+    it 'has a link to delete email address' do
+      person.email_addresses.each do |address|
+        expect(page).to have_link('delete', href: email_address_path(address))
+      end
+    end
+    
     it 'deletes an email address'
     
   end
