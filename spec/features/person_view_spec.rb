@@ -67,6 +67,7 @@ describe 'the person view', type: :feature do
       delete_links.last.click
       
       expect(page).not_to have_content(number)
+      expect(current_path).to eq(person_path(person))
     end
   end
   
@@ -137,6 +138,7 @@ describe 'the person view', type: :feature do
       delete_links = page.all('a', :text => 'delete')
       delete_links.last.click
       
+      expect(current_path).to eq(person_path(person))
       expect(page).not_to have_content(email)
     end
     
