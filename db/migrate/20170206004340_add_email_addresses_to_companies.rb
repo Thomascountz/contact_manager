@@ -1,9 +1,9 @@
 class AddEmailAddressesToCompanies < ActiveRecord::Migration
   def up
     EmailAddress.destroy_all
-    remove_column :email_address, :person_id
-    add_column :email_address, :contact_id, :integer
-    add_column :email_address, :contact_type, :string
+    remove_column :email_addresses, :person_id
+    add_column :email_addresses, :contact_id, :integer
+    add_column :email_addresses, :contact_type, :string
   end
   
   def down
