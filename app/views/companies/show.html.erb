@@ -5,5 +5,11 @@
   <%= @company.name %>
 </p>
 
+<% @company.phone_numbers.each do |phone| %>
+  <ul>
+    <li><%= phone.number %></li>
+  </ul>
+<% end %>
+
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
