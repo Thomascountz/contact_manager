@@ -85,7 +85,7 @@ RSpec.describe EmailAddressesController, type: :controller do
         expect(assigns(:email_address)).to be_persisted
       end
 
-      it "redirects to the email's person" do
+      it "redirects to the email's contact" do
         post :create, {email_address: valid_attributes}, session: valid_session
         expect(response).to redirect_to(john)
       end
