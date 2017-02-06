@@ -7,9 +7,14 @@
 
 <% @company.phone_numbers.each do |phone| %>
   <ul>
-    <li><%= phone.number %></li>
+    <li>
+      <%= phone.number %> 
+      <%= link_to 'edit', edit_phone_number_path(phone) %> | 
+      <%= link_to 'delete', phone_number_path(phone), method: 'delete' %>
+    </li>
   </ul>
 <% end %>
 
+<%= link_to 'Add phone number', new_phone_number_path(contact_id: @company.id, contact_type: 'Company') %>
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
